@@ -1,27 +1,28 @@
-const express = require('express')
-const mongoose = require('mongoose');
-const connectDB = require('./config/db')
-const app = express()
-const User= require('./models/user.model')
-const swaggerUi = require('swagger-ui-express')
-const swaggerDoc = require('./swagger.json')
-require('dotenv').config()
-const cors = require('cors')
-const PORT = process.env.PORT || 3005
-
+const express = require("express");
+const mongoose = require("mongoose");
+const connectDB = require("./config/db");
+const app = express();
+const User = require("./models/user.model");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDoc = require("./swagger.json");
+require("dotenv").config();
+const cors = require("cors");
+const router = express.Router();
+const PORT = process.env.PORT || 3005;
 
 // connecting to db
 connectDB();
 
-const corsOpts = {
-  origin: "*",
+// const corsOpts = {
+//   origin: "*",
 
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 
-  allowedHeaders: ["Content-Type", "x-access-token"],
-};
+//   allowedHeaders: ["Content-Type", "x-access-token"],
+// };
 
-app.use(cors(corsOpts));
+// app.use(cors(corsOpts));
+app.use(cors({ credentials: true, origin: "*" }));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
@@ -37,6 +38,6 @@ app.use(function (req, res) {
   res.status(404).json("err: Page not found");
 });
 
-app.listen(PORT,()=>{
-    console.log('app is running on port '+ PORT)
-})
+app.listen(PORT, () => {
+  console.log("app is running on port " + PORT);
+});
