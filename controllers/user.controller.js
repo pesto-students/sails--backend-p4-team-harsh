@@ -78,8 +78,8 @@ const register = async(req,res)=>{
       const password = await bcrypt.hash(req.body.password,10)
       await User.create(
         {
-        firstname:req.body.firstname,
-        lastname:req.body.lastname,
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
         email:req.body.email,
         password,
         countryCode: req.body.countryCode,
